@@ -1,0 +1,41 @@
+USE DATABASE TEST_DB;
+USE SCHEMA PUBLIC;
+
+-- Deduplicate: latest order per CUSTOMER_ID
+-- (ROW_NUMBER chooses a single latest row even if timestamps tie)
+WITH ranked AS (
+  SELECT
+    *,
+    ROW_NUMBER() OVER (
+      PARTITION BY CUSTOMER_ID
+      ORDER BY ORDER_TS DESC, ORDER_ID DESC
+    ) AS rn
+  FROM SALES
+)
+SELECT
+  ORDER_ID,
+  CUSTOMER_ID,
+  ORDER_TS,
+  PRODUCT,
+  QTY,
+  UNIT_PRICE,
+  REGION
+FROM ranked
+WHERE rn = 1
+ORDER BY CUSTOMER_ID;
+
+-- Same result using QUALIFY (Snowflake-friendly, cleaner)
+SELECT
+  ORDER_ID,
+  CUSTOMER_ID,
+  ORDER_TS,
+  PRODUCT,
+  QTY,
+  UNIT_PRICE,
+  REGION
+FROM SALES
+QUALIFY ROW_NUMBER() OVER (
+  PARTITION BY CUSTOMER_ID
+  ORDER BY ORDER_TS DESC, ORDER_ID DESC
+) = 1
+ORDER BY CUSTOMER_ID;
