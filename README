@@ -1,0 +1,68 @@
+Snowflake Data Test Templates
+
+A practical collection of Snowflake SQL and Snowpark patterns used for technical interviews, prototyping, and rapid data testing.
+
+This repository contains reusable snippets for:
+
+Random data generation
+
+Common SQL interview problems
+
+Window functions and analytics
+
+Data loading patterns (INSERT, MERGE, COPY)
+
+Data quality checks
+
+Performance and troubleshooting examples
+
+Optional Snowpark Python templates
+
+The goal is to have a lightweight toolkit that can be executed quickly inside Snowflake Worksheets or Snowflake Notebooks.
+
+Repository Structure
+00_setup/
+    Database and schema setup scripts
+
+01_data_generation/
+    Random number generation
+    Fake dataset creation
+
+02_sql_patterns/
+    Common interview SQL patterns
+    - second highest value
+    - dedup latest record
+    - running totals
+    - pivot/unpivot
+
+03_loading/
+    Insert, merge and upsert examples
+
+04_quality/
+    Null checks
+    Duplicate detection
+    Reconciliation counts
+
+05_performance/
+    Query profile examples
+    Performance notes
+
+06_python_snowpark/
+    Optional Snowpark Python examples
+How To Use
+Option 1 — Snowflake Worksheet
+
+Open Snowflake Snowsight
+
+Copy SQL from any file
+
+Run scripts in order starting from:
+
+00_setup/00_create_db_schema.sql
+Option 2 — Snowflake Notebook (Recommended for Interviews)
+
+Keep this repo open in GitHub
+
+Copy snippets into Notebook cells
+
+Modify quickly during technical exercises
